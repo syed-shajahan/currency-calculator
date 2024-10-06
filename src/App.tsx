@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider, CssBaseline, IconButton } from "@mui/material";
+import Home from "./pages/home";
+import getTheme from "./theme";
+import { Brightness7, Brightness4 } from "@mui/icons-material"; 
 
 function App() {
+  const [mode, setMode] = useState<"light" | "dark">("light");
+  const theme = getTheme(mode);
+
+  const toggleTheme = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <IconButton onClick={toggleTheme} color="inherit">
+        {mode === "light" ? <Brightness4 /> : <Brightness7 />} 
+      </IconButton>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
