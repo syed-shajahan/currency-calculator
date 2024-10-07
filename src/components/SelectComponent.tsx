@@ -22,8 +22,8 @@ const SelectComponent: FC<IpropsSelect> = ({
         value={selectCurrency}
         onChange={handleCountryChange}
       >
-        {currencyCode.map((data) => {
-          return <option value={data}>{data}</option>;
+        {currencyCode.map((data, index) => {
+          return <option key={index} value={data}>{data}</option>;
         })}
       </select>
     </Box>
