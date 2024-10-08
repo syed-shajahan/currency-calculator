@@ -5,6 +5,7 @@ import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { HOME_TITLE } from '../../utils/types/enum';
 import UnstyledButtonCustom from '../../components/Button';
 import SelectFilterComponent from '../../components/SelectFilter';
+import { Margin } from '@mui/icons-material';
 
 const Home = () => {
   const Classes = useCustomStyles();
@@ -14,17 +15,15 @@ const Home = () => {
   const [toCurrency, setToCurrency] = useState<string>('GIP ');
   const [result, setResult] = useState<string | number>('');
 
-  const handleSwapCountries = () => {
-    setFromCurrency(toCurrency);
-    setToCurrency(fromCurrency);
-  };
-  console.log(process.env.REACT_APP_APIKEY, 'test');
+  // console.log(process.env.REACT_APP_APIKEY, 'test');
 
   const getExchangeRate = async () => {
     try {
       const Api_URL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_APIKEY}/pair/${fromCurrency}/${toCurrency}`;
       const data = await fetch(Api_URL);
       const res = await data.json();
+
+      console.log(res, 'here');
 
       if (res.conversion_rate) {
         const rate = (res.conversion_rate * amount).toFixed();
@@ -42,6 +41,12 @@ const Home = () => {
     getExchangeRate();
   };
 
+  const handleSwapCountries = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+    getExchangeRate();
+  };
+
   return (
     <Box className={Classes.custom_container}>
       <Box className={Classes.main_content}>
@@ -55,7 +60,7 @@ const Home = () => {
           />
 
           <Box className={Classes.box_warp}>
-            <p>{HOME_TITLE.FROM}</p>
+            <p style={{ margin: '0px' }}>{HOME_TITLE.FROM}</p>
 
             {/* <SelectComponent
               selectCurrency={fromCurrency}
@@ -74,20 +79,21 @@ const Home = () => {
 
             <IconButton
               onClick={handleSwapCountries}
-              style={{ maxWidth: 'maxContent', margin: 'auto' }}
+              className={Classes.swap_icon}
             >
               <SwapVertIcon />
             </IconButton>
 
-            <p>{HOME_TITLE.TO}</p>
+            <p className={Classes.min_text}>{HOME_TITLE.TO}</p>
             <SelectFilterComponent
               selectCurrency={toCurrency}
               handleCountryChange={(e) => setToCurrency(e.target.value)}
             />
 
-            <h1>
-              {HOME_TITLE.RATE} {result}
+            <h1 className={Classes.resultRate}>
+              <span>{HOME_TITLE.RATE} :</span>  {result}
             </h1>
+
             <button
               type="submit"
               className={Classes.button_submit}

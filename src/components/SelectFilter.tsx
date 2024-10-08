@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import currencyData from '../pages/home/currencyCodeMockupData.json';
 import { Box } from '@mui/material';
+import { useCustomStyles } from '../pages/home/styles';
 
 interface CurrencyOption {
   code: string;
@@ -21,16 +22,20 @@ const SelectFilterComponent: React.FC<IpropsSelect> = ({
   selectCurrency,
   handleCountryChange,
 }) => {
+  const Classes = useCustomStyles();
+
   const countryCode = selectCurrency.substring(0, 2);
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <img
-        style={{ marginLeft: '10px' }}
-        src={`https://flagsapi.com/${countryCode}/flat/64.png`}
-        alt={''}
-      />
+    <Box className={Classes.select_container}>
+      <Box className={Classes.flag}>
+        <img
+          style={{ marginRight: '10px' }}
+          src={`https://flagsapi.com/${countryCode}/flat/64.png`}
+          alt={''}
+        />
+      </Box>
       <Autocomplete
-        sx={{ width: 300 }}
+        sx={{ width: '100%' }}
         options={currencyData}
         getOptionLabel={(option: CurrencyOption) =>
           `${option.code} - ${option.name}`

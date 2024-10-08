@@ -15,7 +15,20 @@ const SelectComponent: FC<IpropsSelect> = ({
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <img style={{marginRight:'10px'}} src={`https://flagsapi.com/${countryCode}/flat/64.png`} alt={''} />
+      <Box
+        sx={{
+          width: '50px',
+          height: '50px',
+          overflow: 'hidden',
+          borderRadius: '10px',
+        }}
+      >
+        <img
+          style={{ marginRight: '10px' }}
+          src={`https://flagsapi.com/${countryCode}/flat/64.png`}
+          alt={''}
+        />
+      </Box>
       <select
         name=""
         id=""
