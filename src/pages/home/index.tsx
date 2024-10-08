@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCustomStyles } from './styles';
 import { Box, IconButton } from '@mui/material';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
@@ -14,10 +14,12 @@ const Home = () => {
   const [fromCurrency, setFromCurrency] = useState<string>('INR');
   const [toCurrency, setToCurrency] = useState<string>('GIP ');
   const [result, setResult] = useState<string | number>('');
+  const [isoading, setIsoading] = useState<boolean>(true);
 
   // console.log(process.env.REACT_APP_APIKEY, 'test');
 
   const getExchangeRate = async () => {
+    setIsoading(true);
     try {
       const Api_URL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_APIKEY}/pair/${fromCurrency}/${toCurrency}`;
       const data = await fetch(Api_URL);
@@ -26,13 +28,15 @@ const Home = () => {
       console.log(res, 'here');
 
       if (res.conversion_rate) {
-        const rate = (res.conversion_rate * amount).toFixed();
-        setResult(Number(rate));
+        const rate = (res.conversion_rate * amount).toFixed(2);
+        setResult(`${amount} ${fromCurrency} =  ${rate}  ${toCurrency}`);
       } else {
         console.error('Invalid conversion rate in API response.');
       }
     } catch (error) {
       console.error('Error fetching API:', error);
+    } finally {
+      setIsoading(false);
     }
   };
 
@@ -46,6 +50,10 @@ const Home = () => {
     setToCurrency(fromCurrency);
     getExchangeRate();
   };
+
+  useEffect(() => {
+    getExchangeRate();
+  }, []);
 
   return (
     <Box className={Classes.custom_container}>
@@ -91,7 +99,8 @@ const Home = () => {
             />
 
             <h1 className={Classes.resultRate}>
-              <span>{HOME_TITLE.RATE} :</span>  {result}
+              <span>{HOME_TITLE.RATE} :</span>{' '}
+              {isoading ? 'Getting Exchange Rate...' : result}
             </h1>
 
             <button

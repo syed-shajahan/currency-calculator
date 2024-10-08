@@ -70,7 +70,7 @@ export const useCustomStyles = makeStyles((theme: Theme) => ({
   },
 
   resultRate: {
-    fontSize: '32px',
+    fontSize: '30px',
     color: theme.palette.mode === 'dark' ? '#fff' : '#333',
     marginRight: 'auto',
     fontWeight: '600',
