@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
-import React, { FC } from "react";
-import currencyCode from "../../src/pages/home/currencyCodeMockupData.json";
+import { Box } from '@mui/material';
+import React, { FC } from 'react';
+import currencyCode from '../../src/pages/home/currencyCodeMockupData.json';
 
 interface IpropsSelect {
   selectCurrency: string;
@@ -14,8 +14,8 @@ const SelectComponent: FC<IpropsSelect> = ({
   const countryCode = selectCurrency.substring(0, 2);
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <img src={`https://flagsapi.com/${countryCode}/flat/64.png`} alt={""} />
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <img style={{marginRight:'10px'}} src={`https://flagsapi.com/${countryCode}/flat/64.png`} alt={''} />
       <select
         name=""
         id=""
@@ -23,7 +23,11 @@ const SelectComponent: FC<IpropsSelect> = ({
         onChange={handleCountryChange}
       >
         {currencyCode.map((data, index) => {
-          return <option key={index} value={data}>{data}</option>;
+          return (
+            <option key={index} value={data.code}>
+              {data.code}
+            </option>
+          );
         })}
       </select>
     </Box>
