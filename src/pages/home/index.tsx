@@ -5,7 +5,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { HOME_TITLE } from "../../utils/types/enum";
 import UnstyledButtonCustom from "../../components/Button";
 import SelectFilterComponent from "../../components/SelectFilter";
-import { Margin } from "@mui/icons-material";
+import BgMesh from "../../components/BgMesh";
 
 const Home = () => {
   const Classes = useCustomStyles();
@@ -56,66 +56,73 @@ const Home = () => {
   }, []);
 
   return (
-    <Box className={Classes.custom_container}>
-      <Box className={Classes.main_content}>
-        <form action="#" onSubmit={handleOnSubmit}>
-          <input
-            type="number"
-            placeholder="Enter Currency Amout"
-            className={Classes.custom_input}
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-          />
-
-          <Box className={Classes.box_warp}>
-            <p style={{ margin: "0px" }}>{HOME_TITLE.FROM}</p>
-
-            <SelectFilterComponent
-              selectCurrency={fromCurrency}
-              handleCountryChange={(e) => setFromCurrency(e.target.value)}
+    <>
+      <Box className={Classes.custom_container}>
+        <Box className={Classes.main_content}>
+          <form action="#" onSubmit={handleOnSubmit}>
+            <input
+              type="number"
+              placeholder="Enter Currency Amout"
+              className={Classes.custom_input}
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
             />
 
-            <IconButton
-              onClick={handleSwapCountries}
-              className={Classes.swap_icon}
-            >
-              <SwapVertIcon />
-            </IconButton>
+            <Box className={Classes.box_warp}>
+              <p style={{ margin: "0px" }}>{HOME_TITLE.FROM}</p>
 
-            <p className={Classes.min_text}>{HOME_TITLE.TO}</p>
-            <SelectFilterComponent
-              selectCurrency={toCurrency}
-              handleCountryChange={(e) => setToCurrency(e.target.value)}
-            />
+              <SelectFilterComponent
+                selectCurrency={fromCurrency}
+                handleCountryChange={(e) => setFromCurrency(e.target.value)}
+              />
 
-            <h1 className={Classes.resultRate}>
-              <span>{HOME_TITLE.RATE} :</span>{" "}
-              {isoading ? (
-                <Box sx={{ display: "flex" }}>
-                  <CircularProgress />
-                </Box>
-              ) : (
-                result
-              )}
-            </h1>
+              <IconButton
+                onClick={handleSwapCountries}
+                className={Classes.swap_icon}
+              >
+                <SwapVertIcon />
+              </IconButton>
 
-            <button
-              type="submit"
-              className={Classes.button_submit}
-              style={{
-                border: "none",
-                outline: "none",
-                background: "transparent",
-              }}
-            >
-              <UnstyledButtonCustom>
-                {HOME_TITLE.CHECKRATE}
-              </UnstyledButtonCustom>
-            </button>
-          </Box>
-        </form>
+              <p className={Classes.min_text}>{HOME_TITLE.TO}</p>
+              <SelectFilterComponent
+                selectCurrency={toCurrency}
+                handleCountryChange={(e) => setToCurrency(e.target.value)}
+              />
+
+              <h1 className={Classes.resultRate}>
+                <span>{HOME_TITLE.RATE} :</span>{" "}
+                {isoading ? (
+                  <>
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+
+             
+                    </Box>
+                  </>
+                ) : (
+                  result
+                )}
+              </h1>
+
+              <button
+                type="submit"
+                className={Classes.button_submit}
+                style={{
+                  border: "none",
+                  outline: "none",
+                  background: "transparent",
+                }}
+              >
+                <UnstyledButtonCustom>
+                  {HOME_TITLE.CHECKRATE}
+                </UnstyledButtonCustom>
+              </button>
+            </Box>
+          </form>
+        </Box>
       </Box>
-    </Box>
+      <BgMesh />
+    </>
   );
 };
 

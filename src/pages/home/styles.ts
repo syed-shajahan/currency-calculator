@@ -43,7 +43,7 @@ export const useCustomStyles = makeStyles((theme: Theme) => ({
     borderColor: theme.palette.mode === "dark" ? "#eeeeee45" : "#ccc",
     borderRadius: "25px",
     overflow: "hidden",
-    backdropFilter: "blur(5px)",
+    backdropFilter: "blur(8px)",
     [theme.breakpoints.down("md")]: {
       padding: "105x",
     },
