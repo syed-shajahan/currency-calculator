@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useCustomStyles } from './styles';
-import { Box, IconButton } from '@mui/material';
-import SwapVertIcon from '@mui/icons-material/SwapVert';
-import { HOME_TITLE } from '../../utils/types/enum';
-import UnstyledButtonCustom from '../../components/Button';
-import SelectFilterComponent from '../../components/SelectFilter';
-import { Margin } from '@mui/icons-material';
+import React, { useEffect, useState } from "react";
+import { useCustomStyles } from "./styles";
+import { Box, CircularProgress, IconButton } from "@mui/material";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { HOME_TITLE } from "../../utils/types/enum";
+import UnstyledButtonCustom from "../../components/Button";
+import SelectFilterComponent from "../../components/SelectFilter";
+import { Margin } from "@mui/icons-material";
 
 const Home = () => {
   const Classes = useCustomStyles();
 
   const [amount, setAmount] = useState<number>(10);
-  const [fromCurrency, setFromCurrency] = useState<string>('INR');
-  const [toCurrency, setToCurrency] = useState<string>('GIP ');
-  const [result, setResult] = useState<string | number>('');
+  const [fromCurrency, setFromCurrency] = useState<string>("INR");
+  const [toCurrency, setToCurrency] = useState<string>("GIP ");
+  const [result, setResult] = useState<string | number>("");
   const [isoading, setIsoading] = useState<boolean>(true);
 
   // console.log(process.env.REACT_APP_APIKEY, 'test');
@@ -25,16 +25,16 @@ const Home = () => {
       const data = await fetch(Api_URL);
       const res = await data.json();
 
-      console.log(res, 'here');
+      console.log(res, "here");
 
       if (res.conversion_rate) {
         const rate = (res.conversion_rate * amount).toFixed(2);
         setResult(`${amount} ${fromCurrency} =  ${rate}  ${toCurrency}`);
       } else {
-        console.error('Invalid conversion rate in API response.');
+        console.error("Invalid conversion rate in API response.");
       }
     } catch (error) {
-      console.error('Error fetching API:', error);
+      console.error("Error fetching API:", error);
     } finally {
       setIsoading(false);
     }
@@ -68,17 +68,7 @@ const Home = () => {
           />
 
           <Box className={Classes.box_warp}>
-            <p style={{ margin: '0px' }}>{HOME_TITLE.FROM}</p>
-
-            {/* <SelectComponent
-              selectCurrency={fromCurrency}
-              handleCountryChange={(e) => setFromCurrency(e.target.value)}
-            /> */}
-
-            {/* <SelectComponent
-              selectCurrency={toCurrency}
-              handleCountryChange={(e) => setToCurrency(e.target.value)}
-            /> */}
+            <p style={{ margin: "0px" }}>{HOME_TITLE.FROM}</p>
 
             <SelectFilterComponent
               selectCurrency={fromCurrency}
@@ -99,17 +89,23 @@ const Home = () => {
             />
 
             <h1 className={Classes.resultRate}>
-              <span>{HOME_TITLE.RATE} :</span>{' '}
-              {isoading ? 'Getting Exchange Rate...' : result}
+              <span>{HOME_TITLE.RATE} :</span>{" "}
+              {isoading ? (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              ) : (
+                result
+              )}
             </h1>
 
             <button
               type="submit"
               className={Classes.button_submit}
               style={{
-                border: 'none',
-                outline: 'none',
-                background: 'transparent',
+                border: "none",
+                outline: "none",
+                background: "transparent",
               }}
             >
               <UnstyledButtonCustom>
