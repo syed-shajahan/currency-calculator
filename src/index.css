@@ -14,19 +14,23 @@ code {
 
 /* Keyframes for animating each circle mesh */
 @keyframes animateMesh1 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
     background: radial-gradient(circle, #ff6ec7, #9b51e0);
   }
+
   25% {
     transform: translate(-100px, 100px) scale(1.2);
     background: radial-gradient(circle, #9b51e0, #007aff);
   }
+
   50% {
     transform: translate(200px, -150px) scale(1.1);
     background: radial-gradient(circle, #007aff, #00c9ff);
   }
+
   75% {
     transform: translate(-150px, -100px) scale(0.9);
     background: radial-gradient(circle, #00c9ff, #ff6ec7);
@@ -34,19 +38,23 @@ code {
 }
 
 @keyframes animateMesh2 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
     background: radial-gradient(circle, #007aff, #ff6ec7);
   }
+
   25% {
     transform: translate(200px, -200px) scale(1.3);
     background: radial-gradient(circle, #00c9ff, #9b51e0);
   }
+
   50% {
     transform: translate(-150px, 200px) scale(1.1);
     background: radial-gradient(circle, #9b51e0, #007aff);
   }
+
   75% {
     transform: translate(300px, -100px) scale(0.9);
     background: radial-gradient(circle, #ff6ec7, #00c9ff);
@@ -54,19 +62,23 @@ code {
 }
 
 @keyframes animateMesh3 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
     background: radial-gradient(circle, #9b51e0, #00c9ff);
   }
+
   25% {
     transform: translate(-200px, 150px) scale(1.1);
     background: radial-gradient(circle, #ff6ec7, #007aff);
   }
+
   50% {
     transform: translate(100px, -200px) scale(0.9);
     background: radial-gradient(circle, #00c9ff, #9b51e0);
   }
+
   75% {
     transform: translate(250px, 200px) scale(1.2);
     background: radial-gradient(circle, #007aff, #ff6ec7);
@@ -74,19 +86,23 @@ code {
 }
 
 @keyframes animateMesh4 {
+
   0%,
   100% {
     transform: translate(0, 0) scale(1);
     background: radial-gradient(circle, #00c9ff, #007aff);
   }
+
   25% {
     transform: translate(100px, -100px) scale(1.2);
     background: radial-gradient(circle, #9b51e0, #ff6ec7);
   }
+
   50% {
     transform: translate(-300px, 300px) scale(1);
     background: radial-gradient(circle, #007aff, #00c9ff);
   }
+
   75% {
     transform: translate(200px, -150px) scale(0.9);
     background: radial-gradient(circle, #ff6ec7, #9b51e0);
@@ -96,22 +112,27 @@ code {
 /* General styles for the mesh container and circles */
 .mesh-container {
   pointer-events: none;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: fixed;
+  left: 0px;
+  top: 0px;
 }
+
 
 .circle {
   position: absolute;
   width: 350px;
   height: 350px;
   border-radius: 50%;
-  filter: blur(100px); /* Add deep blur for a more mesh-like effect */
+  filter: blur(100px);
+  /* Add deep blur for a more mesh-like effect */
   opacity: 0.7;
-  animation:  18s linear infinite;
+  animation: 18s linear infinite;
 }
 
 /* Apply different animations to each mesh circle */
