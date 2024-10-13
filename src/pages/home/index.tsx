@@ -5,7 +5,8 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { HOME_TITLE } from "../../utils/types/enum";
 import UnstyledButtonCustom from "../../components/Button";
 import SelectFilterComponent from "../../components/SelectFilter";
-import BgMesh from "../../components/BgMesh";
+import BgMesh from "../../components/bg-mesh/BgMesh";
+import { getExchangeRateFromApi } from "../../utils/api/api";
 
 const Home = () => {
   const Classes = useCustomStyles();
@@ -16,19 +17,13 @@ const Home = () => {
   const [result, setResult] = useState<string | number>("");
   const [isoading, setIsoading] = useState<boolean>(true);
 
-  // console.log(process.env.REACT_APP_APIKEY, 'test');
-
   const getExchangeRate = async () => {
     setIsoading(true);
     try {
-      const Api_URL = `https://v6.exchangerate-api.com/v6/${process.env.REACT_APP_APIKEY}/pair/${fromCurrency}/${toCurrency}`;
-      const data = await fetch(Api_URL);
-      const res = await data.json();
+      const mainAPI = await getExchangeRateFromApi(fromCurrency, toCurrency);
 
-      console.log(res, "here");
-
-      if (res.conversion_rate) {
-        const rate = (res.conversion_rate * amount).toFixed(2);
+      if (mainAPI.conversion_rate) {
+        const rate = (mainAPI.conversion_rate * amount).toFixed(2);
         setResult(`${amount} ${fromCurrency} =  ${rate}  ${toCurrency}`);
       } else {
         console.error("Invalid conversion rate in API response.");
@@ -93,10 +88,8 @@ const Home = () => {
                 <span>{HOME_TITLE.RATE} :</span>{" "}
                 {isoading ? (
                   <>
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", width:"40px" , height:'40px' }}>
                       <CircularProgress />
-
-             
                     </Box>
                   </>
                 ) : (
